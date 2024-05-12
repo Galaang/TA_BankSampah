@@ -9,8 +9,11 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- icon --}}
+        <script src="https://kit.fontawesome.com/4f4d2f6b6c.js" crossorigin="anonymous"></script>
+        {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+        
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/style.css', 'resources/js/script.js'])
     </head>
     <body>
         <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-slate-200 font-roboto">
@@ -32,5 +35,11 @@
                 </main>
             </div>
         </div>
+        
     </body>
+    {{-- <script>
+        $(document).ready(function() {
+            $('#select').select2();
+        });
+    </script> --}}
 </html>

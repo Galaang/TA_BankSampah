@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\penjualan_controller;
+use App\Http\Controllers\DataSampah_Controller;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // Route::post('/logout', [ProfileController::class, 'logout'])->name('logout');
+    Route::get('/penjualan',[penjualan_controller::class, 'index'])->name('penjualan');
+    Route::get('/data_sampah',[DataSampah_Controller::class, 'index'])->name('DataSampah');
 });
 
 

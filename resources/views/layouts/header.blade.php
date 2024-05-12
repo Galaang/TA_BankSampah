@@ -11,7 +11,7 @@
         <x-dropdown>
             <x-slot name="trigger">
                 <button @click="dropdownOpen = ! dropdownOpen" class="relative block overflow-hidden capitalize">
-                    {{ Auth::user()->name }}
+                    {{ explode(' ', Auth::user()->name)[0] }}
                 </button>
             </x-slot>
 
@@ -33,3 +33,11 @@
         </x-dropdown>
     </div>
 </header>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('#state').select2();
+        });
+    </script>
+@endpush
