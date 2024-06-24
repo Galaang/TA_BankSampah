@@ -15,7 +15,9 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.4.3",
         "flowbite": "^2.3.0",
-        "select2": "^4.1.0-rc.0"
+        "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.11.1"
     }
 }

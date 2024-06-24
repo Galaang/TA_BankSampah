@@ -14,61 +14,32 @@ window.onscroll = function () {
     }
 }
 
+// dropdown profile
+document.getElementById('dropdownButton').addEventListener('click', function() {
+    document.getElementById('dropdownMenu').classList.toggle('hidden');
+});
 
-const cardContainer = document.getElementById('cardContainer');
-    const addCardButton = document.getElementById('addCardButton');
+window.addEventListener('click', function(e) {
+    if (!document.getElementById('dropdownButton').contains(e.target)) {
+        document.getElementById('dropdownMenu').classList.add('hidden');
+    }
+});
 
-    let cardCount = 0;
-
-    addCardButton.addEventListener('click', function() {
-    cardCount++;
-
-    const newCard = document.createElement('div');
-    newCard.classList.add('mt-8',);
+// sidebar
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('toggleButton');
+    const overlay = document.getElementById('overlay');
+    const sidebar = document.getElementById('sidebar');
     
-      // Konten card
-        newCard.innerHTML = `
-        <div class="flex justify-end items-center z-[9999] mt-10">
-        <button id="deleteButton${cardCount}" class=""><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm5.757-1a1 1 0 1 0 0 2h8.486a1 1 0 1 0 0-2H7.757Z" clip-rule="evenodd"/>
-        </svg></button>
-        </div>
-
-        <div class="mb-4">
-        <label for="jenis_sampah" class="block mb-2 text-sm font-bold text-gray-700">Jenis Sampah:</label>
-        <select class="w-full rounded form-control" name="select" id="select">
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-        </select>
-        </div>
-
-        <div class="mb-4">
-        <label for="item_name" class="block mb-2 text-sm font-bold text-gray-700">Nama Sampah:</label>
-        <select class="w-full rounded form-control" name="select" id="select">
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-        </select>
-        </div>
-
-        <div class="mb-4">
-        <label for="weight" class="block mb-2 text-sm font-bold text-gray-700">Berat:</label>
-        <input type="text" name="weight" id="weight" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
-        </div>
-
-        <div class="mb-4">
-        <label for="weight" class="block mb-2 text-sm font-bold text-gray-700">Harga:</label>
-        <input type="text" name="weight" id="weight" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
-        </div>
-        
-    `;
-
-    cardContainer.appendChild(newCard);
-
-    // Menambah event listener untuk tombol hapus
-    const deleteButton = newCard.querySelector(`#deleteButton${cardCount}`);
-    deleteButton.addEventListener('click', function() {
-    newCard.remove();
+    toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('translate-x-0');
+        overlay.classList.toggle('hidden');
     });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+        sidebar.classList.remove('translate-x-0');
+        overlay.classList.add('hidden');
     });
+});
