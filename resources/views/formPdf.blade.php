@@ -1,7 +1,38 @@
-<x-app-layout>
-    <x-slot name="header">
-        {{ __('Riwayat Penjualan') }}
-    </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <h1 style="text-align: center">Laporan Penjualan Bank Sampah Delima</h1>
+    <span>Tanggal : {{ $startDate }} - {{ $endDate }}</span>
 
     <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
         <div class="p-6 border-b border-gray-200">
@@ -12,6 +43,9 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 No
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Nama
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Jenis Sampah
@@ -31,10 +65,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($penjualan as $p)
+                        @foreach ($penjualans as $p)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td scope="row" class="px-6 py-4">
                                     {{ $loop->iteration }}
+                                </td>
+                                <td scope="row" class="px-6 py-4">
+                                    {{ $p->name }}
                                 </td>
                                 <td scope="row" class="px-6 py-4">
                                     {{ $p->jenis_sampah }}
@@ -51,18 +88,21 @@
                                 <td class="px-6 py-4">
                                     {{ $p->created_at->format('d-m-Y') }}
                                 </td>
-
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 font-bold text-right">Total Pendapatan:</td>
+                            <td colspan="2" class="px-6 py-4 font-bold">Rp {{ number_format($totalPendapatan) }}</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             {{-- end tabel --}}
-            <div class="mt-4">
-                {{ $penjualan->links('pagination::tailwind') }}
-            </div>
-
-
         </div>
     </div>
-</x-app-layout>
+
+</body>
+
+</html>

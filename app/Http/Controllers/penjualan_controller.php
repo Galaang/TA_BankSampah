@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -15,7 +16,7 @@ class penjualan_controller extends Controller
 {
     public function penjualan(Request $request)
     {
-        $jenis_sampah = ['Plastik', 'Kertas', 'Logam'];
+        $jenis_sampah = ['Plastik', 'Kertas', 'Logam', 'Besi', 'Botol Beling', 'Elektronik'];
         $user = User::where('role_id', '2')->get();
         $sampah = Sampah::all();
         return view('penjualan', compact('sampah', 'user', 'jenis_sampah'));
@@ -68,8 +69,60 @@ class penjualan_controller extends Controller
     public function riwayatpenjualan()
     {
         $user = Auth::user();
-        $penjualan = Penjualan::where('user_id', $user->id)->get();
-        
+        $penjualan = Penjualan::where('user_id', $user->id)
+        ->orderBy('created_at', 'desc')
+        ->paginate(15);
+
         return view('history_penjualan', compact('penjualan'));
+    }
+
+    public function cetaklaporan()
+    {
+        $penjualan = Penjualan::orderBy('created_at', 'desc')->paginate(15);
+        return view('laporan', compact('penjualan'));
+    }
+
+    public function cetakpdf(Request $request)
+    {
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+
+        $query = Penjualan::query();
+
+        if ($startDate) {
+            // Memisahkan tanggal, bulan, dan tahun dari $startDate
+            $startDay = date('d', strtotime($startDate));
+            $startMonth = date('m', strtotime($startDate));
+            $startYear = date('Y', strtotime($startDate));
+
+            $query->whereDay('created_at', '>=', $startDay)
+                ->whereMonth('created_at', '>=', $startMonth)
+                ->whereYear('created_at', '>=', $startYear);
+        }
+
+        if ($endDate) {
+            // Memisahkan tanggal, bulan, dan tahun dari $endDate
+            $endDay = date('d', strtotime($endDate));
+            $endMonth = date('m', strtotime($endDate));
+            $endYear = date('Y', strtotime($endDate));
+
+            $query->whereDay('created_at', '<=', $endDay)
+                ->whereMonth('created_at', '<=', $endMonth)
+                ->whereYear('created_at', '<=', $endYear);
+        }
+
+
+        $penjualans = $query->orderBy('created_at', 'asc')->get();
+        $totalPendapatan = $penjualans->sum('harga_total');
+
+
+        $pdf = PDF::loadView('formPdf', [
+            'penjualans' => $penjualans,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'totalPendapatan' => $totalPendapatan,
+        ]);
+
+        return $pdf->stream('laporan_penjualan.pdf');
     }
 }

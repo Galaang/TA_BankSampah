@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('penarikan_saldos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('nama');
-            $table->string('no_hp');
-            $table->string('jumlah_saldo');
-            $table->string('status');
+            $table->string('nama', 50);
+            $table->string('no_hp', 20);
+            $table->string('jumlah_saldo', 50);
+            $table->string('status', 20);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

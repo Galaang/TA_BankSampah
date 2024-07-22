@@ -71,7 +71,10 @@ class Transaksi_controller extends Controller
 
     public function riwayat_penarikan()
     {
-        $saldo = Penarikan_saldo::where('user_id', Auth::user()->id)->get();
-        return view('riwayat_penarikan_saldo', compact('saldo'));
+        $riwayatpenarikan = Penarikan_saldo::all();
+        $saldo = Penarikan_saldo::where('user_id', Auth::user()->id)
+        ->orderBy('created_at', 'desc')
+        ->paginate(15);
+        return view('riwayat_penarikan_saldo', compact('saldo', 'riwayatpenarikan'));
     }
 }

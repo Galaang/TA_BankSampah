@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <a href="/" class="flex justify-center items-center mb-4">
-        <x-application-logo class="w-10 h-10 fill-current text-gray-500"/>
+    <a href="/" class="flex items-center justify-center mb-4">
+        <x-application-logo class="w-10 h-10 text-gray-500 fill-current" />
     </a>
 
     <div class="mb-4 text-sm text-gray-600">
@@ -11,13 +11,8 @@
         @csrf
 
         <!-- Password -->
-        <x-input-label for="password" :value="__('Password')"/>
-        <x-text-input type="password"
-                 name="password"
-                 id="password"
-                 required
-                 autocomplete="current-password"
-        />
+        <x-input-label for="password" :value="__('Password')" />
+        <x-text-input type="password" name="password" id="password" required autocomplete="current-password" />
         <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
         <div class="flex justify-end mt-4">

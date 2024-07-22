@@ -21,6 +21,7 @@
                         <label for="jenis_sampah" class="block mb-2 text-sm font-bold text-gray-700">Jenis
                             Sampah:</label>
                         <select class="w-full rounded form-control" name="jenis_sampah" id="jenis_sampah">
+                            <option value="" selected>Jenis Sampah</option>
                             @foreach ($jenis_sampah as $jns)
                                 <option value="{{ $jns }}">{{ $jns }}</option>
                             @endforeach
@@ -30,6 +31,7 @@
                     <div class="mb-4">
                         <label for="nama_sampah" class="block mb-2 text-sm font-bold text-gray-700">Nama Sampah:</label>
                         <select class="w-full rounded form-control" name="nama_sampah" id="nama_sampah">
+                            <option value="" selected></option>
                             @foreach ($sampah as $s)
                                 <option value="{{ $s->nama_sampah }}" data-harga="{{ $s->harga_sampah }}">
                                     {{ $s->nama_sampah }}</option>
@@ -38,15 +40,17 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="berat_sampah" class="block mb-2 text-sm font-bold text-gray-700">Berat:</label>
+                        <label for="berat_sampah" class="block mb-2 text-sm font-bold text-gray-700">Berat/(Kg):</label>
                         <input type="number" name="berat_sampah" id="berat_sampah"
                             class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                     </div>
 
                     <div class="mb-4">
                         <label for="harga_sampah" class="block mb-2 text-sm font-bold text-gray-700">Harga:</label>
-                        <input type="text" disabled name="harga_sampah" id="harga_sampah"
-                            class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                        <div class="flex items-center">
+                            <input type="text" disabled name="harga_sampah" id="harga_sampah"
+                                class="w-full px-3 py-2 leading-tight text-gray-700 border rounded-r shadow appearance-none focus:outline-none focus:shadow-outline">
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end">
@@ -102,3 +106,4 @@
         });
     </script>
 @endif
+

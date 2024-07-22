@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('sampah', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_sampah');
-            $table->string('nama_sampah');
+            $table->string('jenis_sampah', 30);
+            $table->string('nama_sampah', 30);
             $table->integer('harga_sampah');
-            $table->string('foto_sampah')->nullable();
+            $table->string('foto_sampah', 100)->nullable();
             $table->timestamps();
         });
     }

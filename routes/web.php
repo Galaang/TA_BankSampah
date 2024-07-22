@@ -9,6 +9,8 @@ use App\Http\Controllers\dashboard_controller;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,8 +30,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('LandingPage');
 });
-
-Route::get('/prov', [dashboard_controller::class, 'provinsi'])->name('provinsi');
 
 
 // Group untuk role 1
@@ -52,31 +52,34 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     Route::put('/transaksi/{id}', [Transaksi_Controller::class, 'accsaldo'])->name('accsaldo');
     Route::get('/check-and-update-withdrawals', [Transaksi_controller::class, 'checkAndUpdateWithdrawals'])->name('checkAndUpdateWithdrawals');
 
+    // cetak laporan
+    Route::get('/cetaklaporan', [penjualan_controller::class, 'cetaklaporan'])->name('cetaklaporan');
+    Route::get('/cetakPdf', [penjualan_controller::class, 'cetakpdf'])->name('cetakPdf');
 });
 
 // Group untuk role 2
 Route::middleware(['auth', 'role:2'])->group(function () {
-
-    // data sampah
-    
     //history penjualan
     Route::get('/historypenjualan', [Penjualan_Controller::class, 'riwayatpenjualan'])->name('History');
 
     // penarikan saldo
     Route::get('/saldo', [Transaksi_controller::class, 'tariksaldo'])->name('tariksaldo');
     Route::post('/tarik_saldo', [Transaksi_controller::class, 'saldostore'])->name('saldostore');
-    Route::get('/riwayat_penarikan', [Transaksi_controller::class, 'riwayat_penarikan'])->name('riwayat_penarikan');
+    
 });
 
-Route::middleware(['auth', 'role:1,2'])->group(function () { 
+Route::middleware(['auth', 'role:1,2'])->group(function () {
     //profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/riwayat_penarikan', [Transaksi_controller::class, 'riwayat_penarikan'])->name('riwayat_penarikan');
+
     //dashboard
     Route::get('/dashboard', [dashboard_controller::class, 'index'])->name('dashboard');
 
+    Route::get('/filter-nama-sampah', [DataSampah_Controller::class, 'filter'])->name('filter.nama_sampah');
     Route::get('/data_sampah', [DataSampah_Controller::class, 'index'])->name('DataSampah');
 });
 
@@ -85,3 +88,5 @@ Route::fallback(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+

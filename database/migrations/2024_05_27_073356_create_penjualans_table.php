@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('jenis_sampah');
-            $table->string('nama_sampah');
-            $table->string('berat_sampah');
+            $table->string('name', 50);
+            $table->string('jenis_sampah', 30);
+            $table->string('nama_sampah', 30);
+            $table->string('berat_sampah', 30);
             $table->float('harga_total');
             $table->timestamps();
 

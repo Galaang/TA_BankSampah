@@ -8,8 +8,8 @@ import.meta.glob([
 
 import Chart from 'chart.js/auto';
 
-import Swal from 'sweetalert2';
-const Swal = require('sweetalert2')
+// import Swal from 'sweetalert2';
+// const Swal = require('sweetalert2')
 
 import Alpine from 'alpinejs';
 
